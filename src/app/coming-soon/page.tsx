@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import { HiMail, HiPhone } from 'react-icons/hi'
 
 export const metadata = {
   title: 'Coming Soon | Montenegro Team Building',
@@ -47,33 +46,7 @@ export default function ComingSoonPage() {
           the most beautiful country on the Adriatic.
         </p>
 
-        {/* Contact */}
-        <div className="bg-slate-800/60 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-8">
-          <p className="text-amber-400 font-semibold text-sm uppercase tracking-widest mb-6">
-            Get in touch in the meantime
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-            <a
-              href="mailto:info@montenegroteambuilding.com"
-              className="flex items-center gap-3 text-white hover:text-amber-400 transition-colors duration-200"
-            >
-              <HiMail className="w-5 h-5 text-amber-400 shrink-0" />
-              <span>info@montenegroteambuilding.com</span>
-            </a>
-            <a
-              href="tel:+38269123456"
-              className="flex items-center gap-3 text-white hover:text-amber-400 transition-colors duration-200"
-            >
-              <HiPhone className="w-5 h-5 text-amber-400 shrink-0" />
-              <span>+382 69 123 456</span>
-            </a>
-          </div>
-        </div>
 
-        {/* Footer note */}
-        <p className="text-slate-600 text-sm mt-12">
-          © {new Date().getFullYear()} Montenegro Team Building. All rights reserved.
-        </p>
       </div>
     </main>
   )
