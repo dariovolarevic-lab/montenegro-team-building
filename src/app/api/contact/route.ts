@@ -34,9 +34,9 @@ export async function POST(request: NextRequest) {
     }
 
     await transporter.sendMail({
-      from: `"Montenegro Team Building" <${process.env.SMTP_USER}>`,
+      from: `"${name}" <${process.env.SMTP_USER}>`,
       to: process.env.TO_EMAIL,
-      replyTo: email,
+      replyTo: `"${name}" <${email}>`,
       subject: `[Website] ${subject}`,
       html: `
 <!DOCTYPE html>
