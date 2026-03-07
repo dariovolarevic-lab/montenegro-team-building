@@ -12,7 +12,10 @@ export default function HeroSection({
   compact = false,
 }: HeroSectionProps) {
   return (
-    <section className="relative w-full">
+    <section
+      className="relative w-full"
+      style={{ clipPath: "polygon(0 0, 100% 0, 100% 90%, 50% 100%, 0 90%)" }}
+    >
       {/* Background image — full, no cropping */}
       {backgroundImage && (
         <img
@@ -55,6 +58,7 @@ export default function HeroSection({
         </div>
       </div>
       )}
+
     </section>
   );
 }

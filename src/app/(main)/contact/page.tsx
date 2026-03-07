@@ -1,12 +1,20 @@
 import type { Metadata } from "next";
 import HeroSection from "@/components/HeroSection";
 import ContactForm from "@/components/ContactForm";
-import { HiMail, HiPhone, HiLocationMarker } from "react-icons/hi";
+import { HiMail } from "react-icons/hi";
 
 export const metadata: Metadata = {
-  title: "Contact Us",
+  title: "Contact Us — Get a Quote for Team Building in Montenegro",
   description:
-    "Get in touch with Montenegro Team Building. Send us your enquiry including date, group size, and other details.",
+    "Contact Montenegro Team Building for a free quote. Tell us your group size, preferred dates and activities. We organise team building events in Kotor, Budva, Podgorica and across Montenegro.",
+  alternates: {
+    canonical: "https://www.montenegroteambuilding.com/contact",
+  },
+  openGraph: {
+    title: "Contact Us — Get a Quote for Team Building in Montenegro",
+    description:
+      "Contact us for a free team building quote. Events in Kotor, Budva, Podgorica and across Montenegro.",
+  },
 };
 
 export default function ContactPage() {
@@ -59,36 +67,6 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3 text-gray-700">
-                  <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center shrink-0">
-                    <HiPhone className="text-amber-600" size={20} />
-                  </div>
-                  <div>
-                    <div className="text-xs text-gray-500 uppercase tracking-wider">
-                      Phone
-                    </div>
-                    <a
-                      href="tel:+38269123456"
-                      className="font-medium hover:text-amber-600 transition-colors"
-                    >
-                      +382 69 123 456
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3 text-gray-700">
-                  <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center shrink-0">
-                    <HiLocationMarker className="text-amber-600" size={20} />
-                  </div>
-                  <div>
-                    <div className="text-xs text-gray-500 uppercase tracking-wider">
-                      Address
-                    </div>
-                    <div className="font-medium">
-                      Stari Grad bb, 85330 Kotor, Montenegro
-                    </div>
-                  </div>
-                </div>
               </div>
 
               {/* Map */}

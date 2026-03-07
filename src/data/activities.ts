@@ -9,6 +9,7 @@ export interface Activity {
   numberOfPeople: string;
   category: string;
   locations: string;
+  galleryImages?: string[];
 }
 
 export const activities: Activity[] = [
@@ -16,6 +17,14 @@ export const activities: Activity[] = [
     slug: "montenegro-scavenger-hunt",
     title: "Montenegro Scavenger Hunt",
     subtitle: "Explore, discover and conquer Montenegro's hidden gems",
+    galleryImages: [
+      "/images/activities/TH1.webp",
+      "/images/activities/TH2.webp",
+      "/images/activities/TH3.webp",
+      "/images/activities/TH4.webp",
+      "/images/activities/TH5.webp",
+      "/images/activities/TH6.webp",
+    ],
     shortDescription:
       "Teams embark on an exciting adventure, diving into historical sites and cultural traditions as they race against the clock! It's the perfect mix of history, laughter, and icebreaking fun!",
     description:
@@ -30,6 +39,14 @@ export const activities: Activity[] = [
     slug: "create-a-movie",
     title: "Create a Movie",
     subtitle: "Lights, camera, teamwork — your team on the big screen",
+    galleryImages: [
+      "/images/activities/Create a movie 1.webp",
+      "/images/activities/Create a movie 2.webp",
+      "/images/activities/Create a movie 3.webp",
+      "/images/activities/Create a movie 4.webp",
+      "/images/activities/Create a movie 5.webp",
+      "/images/activities/Create a movie 6.webp",
+    ],
     shortDescription:
       "The cinematic journey begins with crafting a storyline and selecting filming locations. Teams produce polished short films and walk the red carpet at an Oscars-style Awards Ceremony!",
     description:
@@ -44,6 +61,14 @@ export const activities: Activity[] = [
     slug: "classical-treasure-hunt",
     title: "Classical Treasure Hunt",
     subtitle: "Follow the clues, solve the mystery, claim the treasure",
+    galleryImages: [
+      "/images/activities/TH1.webp",
+      "/images/activities/TH2.webp",
+      "/images/activities/TH3.webp",
+      "/images/activities/TH4.webp",
+      "/images/activities/TH5.webp",
+      "/images/activities/TH6.webp",
+    ],
     shortDescription:
       "Set off on a thrilling treasure hunt, cracking cryptic clues, solving puzzles, and uncovering hidden gems while exploring the city — teamwork and fun guaranteed!",
     description:

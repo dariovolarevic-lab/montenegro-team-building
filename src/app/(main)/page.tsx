@@ -8,24 +8,24 @@ import Link from "next/link";
 
 const reviews: Record<string, { name: string; role: string; company: string; logo: string; text: string }> = {
   "montenegro-scavenger-hunt": {
-    name: "Marko Đurović",
-    role: "HR Director",
-    company: "Deloitte",
-    logo: "/images/logos/1.webp",
+    name: "Pere Tarrida",
+    role: "Comercial Director",
+    company: "JÆR",
+    logo: "/images/logos/JAER.webp",
     text: "I would like to sincerely thank you for the exceptional attention you gave to both me and our group, as well as for your professionalism in organizing our Scavenger Hunt event. We had a wonderful and enjoyable time, and every activity was meticulously planned.",
   },
   "create-a-movie": {
-    name: "Ana Petrović",
-    role: "Team Lead",
-    company: "L'Oréal",
-    logo: "/images/logos/4.webp",
+    name: "Ana-Mara Banu",
+    role: "Managing Director",
+    company: "Welcome Europa",
+    logo: "/images/logos/liqui-moly-testimonial.webp",
     text: "Create a Movie was an incredibly creative and fun experience for our whole team. Everyone participated with so much energy and laughter. The facilitators were outstanding and made the entire event seamless and memorable.",
   },
   "classical-treasure-hunt": {
-    name: "Ivan Nikolić",
-    role: "Operations Manager",
-    company: "Coca-Cola",
-    logo: "/images/logos/2.webp",
+    name: "Carmen Moll",
+    role: "Head of Exhibitions & Events",
+    company: "Liqui Moly",
+    logo: "/images/logos/Welcome-Europa-1.webp",
     text: "The Classical Treasure Hunt was the perfect team-building activity for our group. Everyone was engaged from start to finish. A brilliant way to explore Montenegro while strengthening team bonds. Highly recommended!",
   },
 };
@@ -34,16 +34,26 @@ export default function HomePage() {
   return (
     <>
       {/* Hero */}
-      <HeroSection
-        title=""
-        subtitle=""
-        backgroundImage="/images/hero.webp"
-      />
+      <section className="pt-8 pb-4 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div
+            className="relative overflow-hidden rounded-2xl shadow-xl"
+            style={{ clipPath: "polygon(0 0, 100% 0, 100% 88%, 78% 100%, 0 100%)" }}
+          >
+            <img
+              src="/images/hero.webp"
+              alt="Montenegro Team Building"
+              className="w-full h-auto block"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent" />
+          </div>
+        </div>
+      </section>
 
       {/* Activities Grid */}
       <section className="py-16 md:py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ScrollReveal fade className="text-center mb-12">
+          <ScrollReveal fromLeft className="text-center mb-12">
             <div className="inline-block text-center">
               <h2 className="text-4xl md:text-5xl font-bold text-slate-900 uppercase mb-2">
                 Team Building Activities
@@ -57,7 +67,13 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {activities.map((activity, idx) => (
-              <ScrollReveal key={activity.slug} delay={idx * 150}>
+              <ScrollReveal
+                key={activity.slug}
+                delay={Math.floor(idx / 3) * 100}
+                fromLeft={idx % 3 === 0}
+                fromRight={idx % 3 === 2}
+                fade={idx % 3 === 1}
+              >
                 <ActivityCard activity={activity} />
               </ScrollReveal>
             ))}
@@ -82,7 +98,7 @@ export default function HomePage() {
                   <span className="text-amber-500 text-xs font-bold uppercase tracking-[0.2em]">
                     Enhances Teamwork
                   </span>
-                  <h2 className="text-4xl md:text-5xl font-black text-slate-900 mt-3 mb-5 leading-tight">
+                  <h2 className="text-4xl md:text-5xl font-black text-slate-900 mt-3 mb-5 leading-tight uppercase">
                     {activity.title}
                   </h2>
                   <p className="text-gray-500 text-base leading-relaxed mb-8">
@@ -110,11 +126,11 @@ export default function HomePage() {
                   {review && (
                     <div className="absolute left-0 top-0 z-10 bg-amber-50 border-2 border-amber-200 rounded-2xl p-5 w-64 shadow-xl">
                       <div className="flex items-center gap-3 mb-3">
-                        <div className="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center overflow-hidden shrink-0">
+                        <div className="w-16 h-16 rounded-full bg-white border border-gray-200 flex items-center justify-center overflow-hidden shrink-0">
                           <img
                             src={review.logo}
                             alt={review.company}
-                            className="w-9 h-9 object-contain"
+                            className="w-14 h-14 object-contain"
                           />
                         </div>
                         <div>

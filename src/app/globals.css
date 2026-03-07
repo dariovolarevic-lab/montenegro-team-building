@@ -30,6 +30,16 @@ body {
   to   { opacity: 1; }
 }
 
+@keyframes fadeFromLeft {
+  from { opacity: 0; transform: translateX(-60px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeFromRight {
+  from { opacity: 0; transform: translateX(60px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
 .reveal {
   opacity: 0;
 }
@@ -40,6 +50,22 @@ body {
 
 .reveal-fade.visible {
   animation: fadeIn 0.7s ease forwards;
+}
+
+.reveal-left {
+  opacity: 0;
+}
+
+.reveal-left.visible {
+  animation: fadeFromLeft 0.7s ease forwards;
+}
+
+.reveal-right {
+  opacity: 0;
+}
+
+.reveal-right.visible {
+  animation: fadeFromRight 0.7s ease forwards;
 }
 
 /* Logo carousel ticker animation */

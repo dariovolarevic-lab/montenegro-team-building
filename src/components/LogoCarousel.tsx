@@ -16,7 +16,8 @@ const row2Double = [...logos, ...logos, ...logos, ...logos];
 
 export default function LogoCarousel() {
   return (
-    <section className="px-4 sm:px-8 py-4">
+    <section className="py-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="bg-slate-900 rounded-3xl py-16 overflow-hidden relative">
         {/* Fade edges */}
         <div className="absolute left-0 top-0 h-full w-32 z-10 pointer-events-none" style={{ background: "linear-gradient(to right, #0f172a, transparent)" }} />
@@ -95,6 +96,7 @@ export default function LogoCarousel() {
         <p className="text-slate-300 text-base md:text-lg leading-relaxed">
           We take pride in having partnered with a wide range of renowned local and international corporations to create memorable and impactful team-building experiences. Our expertise in organizing engaging events has earned the trust of top companies across various industries.
         </p>
+      </div>
       </div>
       </div>
     </section>

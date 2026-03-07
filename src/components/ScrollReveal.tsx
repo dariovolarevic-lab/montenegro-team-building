@@ -6,6 +6,8 @@ interface ScrollRevealProps {
   children: ReactNode;
   delay?: number; // ms
   fade?: boolean; // just fade, no slide
+  fromLeft?: boolean;
+  fromRight?: boolean;
   className?: string;
 }
 
@@ -13,6 +15,8 @@ export default function ScrollReveal({
   children,
   delay = 0,
   fade = false,
+  fromLeft = false,
+  fromRight = false,
   className = "",
 }: ScrollRevealProps) {
   const ref = useRef<HTMLDivElement>(null);
@@ -37,10 +41,12 @@ export default function ScrollReveal({
     return () => observer.disconnect();
   }, [delay]);
 
+  const revealClass = fromLeft ? "reveal-left" : fromRight ? "reveal-right" : fade ? "reveal-fade" : "reveal";
+
   return (
     <div
       ref={ref}
-      className={`${fade ? "reveal-fade" : "reveal"} ${className}`}
+      className={`${revealClass} ${className}`}
     >
       {children}
     </div>

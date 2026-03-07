@@ -3,9 +3,17 @@ import HeroSection from "@/components/HeroSection";
 import GalleryGrid from "@/components/GalleryGrid";
 
 export const metadata: Metadata = {
-  title: "Gallery",
+  title: "Gallery — Team Building Events in Montenegro",
   description:
-    "Browse snapshots of team building events we have organized across Montenegro.",
+    "Browse photos from our team building events across Montenegro. See real moments from scavenger hunts, treasure hunts, and creative team activities in Kotor, Budva and beyond.",
+  alternates: {
+    canonical: "https://www.montenegroteambuilding.com/gallery",
+  },
+  openGraph: {
+    title: "Gallery — Team Building Events in Montenegro",
+    description:
+      "Photos from corporate team building events across Montenegro.",
+  },
 };
 
 const galleryImages = [

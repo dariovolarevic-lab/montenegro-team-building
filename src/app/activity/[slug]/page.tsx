@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { HiClock, HiUsers, HiArrowLeft } from "react-icons/hi";
 import { getActivityBySlug, getAllSlugs } from "@/data/activities";
+import ActivityCarousel from "@/components/ActivityCarousel";
 
 interface ActivityPageProps {
   params: Promise<{ slug: string }>;
@@ -20,12 +21,22 @@ export async function generateMetadata({
   if (!activity) return {};
 
   return {
-    title: activity.title,
+    title: `${activity.title} in Montenegro — Team Building Activity`,
     description: activity.shortDescription,
+    keywords: [
+      `${activity.title} Montenegro`,
+      `team building ${activity.category} Montenegro`,
+      "corporate events Montenegro",
+      "team building activities Montenegro",
+    ],
+    alternates: {
+      canonical: `https://www.montenegroteambuilding.com/activity/${slug}`,
+    },
     openGraph: {
       title: `${activity.title} | Montenegro Team Building`,
       description: activity.shortDescription,
       images: [activity.image],
+      type: "article",
     },
   };
 }
@@ -38,32 +49,64 @@ export default async function ActivityPage({ params }: ActivityPageProps) {
     notFound();
   }
 
+  const activitySchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: activity.title,
+    description: activity.shortDescription,
+    provider: {
+      "@type": "LocalBusiness",
+      name: "Montenegro Team Building",
+      url: "https://www.montenegroteambuilding.com",
+    },
+    areaServed: {
+      "@type": "Country",
+      name: "Montenegro",
+    },
+    url: `https://www.montenegroteambuilding.com/activity/${slug}`,
+    image: `https://www.montenegroteambuilding.com${activity.image}`,
+    category: activity.category,
+  };
+
   return (
     <>
-      {/* Hero Image */}
-      <section className="relative min-h-[50vh] flex items-end">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${activity.image})` }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-slate-900/20" />
-        {/* Fallback bg if image doesn't load */}
-        <div className="absolute inset-0 -z-10 bg-slate-700" />
-
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10 w-full">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(activitySchema),
+        }}
+      />
+      {/* Hero */}
+      <section className="pt-8 pb-4 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-amber-400 hover:text-amber-300 text-sm uppercase tracking-wider font-medium mb-4 transition-colors"
+            className="inline-flex items-center gap-2 text-amber-500 hover:text-amber-600 text-sm uppercase tracking-wider font-medium mb-5 transition-colors"
           >
             <HiArrowLeft size={16} />
             Back to Activities
           </Link>
-          <h1 className="text-3xl md:text-5xl font-bold text-white mb-3">
-            {activity.title}
-          </h1>
-          <p className="text-gray-300 text-lg md:text-xl max-w-3xl">
-            {activity.subtitle}
-          </p>
+
+          {/* Image */}
+          <div
+            className="relative overflow-hidden rounded-2xl shadow-xl"
+            style={{ clipPath: "polygon(0 0, 100% 0, 100% 92%, 0 100%)" }}
+          >
+            <img
+              src={activity.image}
+              alt={activity.title}
+              className="w-full h-auto block max-h-[50vh] object-cover object-center"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-slate-900/20 to-transparent" />
+            <div className="absolute bottom-8 left-6 md:left-10 z-10">
+              <h1 className="text-3xl md:text-5xl font-bold text-white mb-2 uppercase drop-shadow-lg">
+                {activity.title}
+              </h1>
+              <p className="text-gray-200 text-base md:text-lg max-w-2xl drop-shadow">
+                {activity.subtitle}
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -144,7 +187,7 @@ export default async function ActivityPage({ params }: ActivityPageProps) {
                 <div className="border-t border-gray-100 mt-6 pt-6">
                   <Link
                     href="/contact"
-                    className="block w-full bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold py-3 px-6 rounded-lg transition-colors text-center uppercase tracking-wider text-sm"
+                    className="btn-quote block w-full bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold py-3 px-6 rounded-full transition-colors text-center uppercase tracking-wider text-sm shadow-lg"
                   >
                     Enquire About This Activity
                   </Link>
@@ -159,6 +202,11 @@ export default async function ActivityPage({ params }: ActivityPageProps) {
           </div>
         </div>
       </section>
+
+      {/* Gallery */}
+      {activity.galleryImages && activity.galleryImages.length > 0 && (
+        <ActivityCarousel images={activity.galleryImages} activityTitle={activity.title} />
+      )}
     </>
   );
 }

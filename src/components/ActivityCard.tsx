@@ -27,7 +27,7 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
 
       {/* Content */}
       <div className="p-5">
-        <h3 className="text-lg font-bold text-slate-900 group-hover:text-amber-600 transition-colors mb-2">
+        <h3 className="text-lg font-bold text-slate-900 group-hover:text-amber-600 transition-colors mb-2 uppercase">
           {activity.title}
         </h3>
         <p className="text-sm text-gray-600 leading-relaxed mb-4 line-clamp-3">
