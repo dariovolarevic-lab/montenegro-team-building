@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
       from: `"${name}" <${process.env.SMTP_USER}>`,
       to: process.env.TO_EMAIL,
       replyTo: `"${name}" <${email}>`,
-      subject: `[Website] ${subject}`,
+      subject: subject,
       html: `
 <!DOCTYPE html>
 <html>
