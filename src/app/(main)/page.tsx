@@ -1,3 +1,4 @@
+
 import HeroSection from "@/components/HeroSection";
 import ActivityCard from "@/components/ActivityCard";
 import LogoCarousel from "@/components/LogoCarousel";
@@ -5,6 +6,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 import QuoteButton from "@/components/QuoteButton";
 import { activities } from "@/data/activities";
 import Link from "next/link";
+import Image from "next/image";
 
 export const revalidate = 86400;
 
