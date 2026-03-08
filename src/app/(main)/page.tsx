@@ -121,9 +121,8 @@ export default function HomePage() {
                   <Link
                     href={`/activity/${activity.slug}`}
                     className="inline-block bg-slate-900 hover:bg-slate-700 text-white font-semibold py-3 px-8 rounded-full transition-colors text-sm uppercase tracking-wider"
-                    aria-label={`Learn more about ${activity.title}`}
                   >
-                    Learn more
+                    Discover {activity.title}
                   </Link>
                 </div>
 
