@@ -9,7 +9,6 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 
 const LogoCarousel = dynamic(() => import("@/components/LogoCarousel"), {
-  ssr: false,
   loading: () => <div className="py-4"><div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div className="bg-slate-900 rounded-3xl py-16 h-[400px]" /></div></div>,
 });
 
