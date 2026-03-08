@@ -37,6 +37,9 @@ export default function LogoCarousel() {
               <img
                 src={logo.src}
                 alt={logo.name}
+                width={180}
+                height={80}
+                loading="lazy"
                 className="max-h-20 max-w-[180px] object-contain"
                 onError={(e) => {
                   const target = e.currentTarget;
@@ -70,6 +73,9 @@ export default function LogoCarousel() {
               <img
                 src={logo.src}
                 alt={logo.name}
+                width={180}
+                height={80}
+                loading="lazy"
                 className="max-h-20 max-w-[180px] object-contain"
                 onError={(e) => {
                   const target = e.currentTarget;

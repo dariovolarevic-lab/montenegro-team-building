@@ -6,6 +6,8 @@ import QuoteButton from "@/components/QuoteButton";
 import { activities } from "@/data/activities";
 import Link from "next/link";
 
+export const revalidate = 86400;
+
 const reviews: Record<string, { name: string; role: string; company: string; logo: string; text: string }> = {
   "montenegro-scavenger-hunt": {
     name: "Pere Tarrida",
@@ -33,7 +35,9 @@ const reviews: Record<string, { name: string; role: string; company: string; log
 export default function HomePage() {
   return (
     <>
-      {/* Hero */}
+      {/* Preload hero image */}
+      <link rel="preload" as="image" href="/images/hero.webp" />
+      {/* Hero */}}
       <section className="pt-8 pb-4 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div
