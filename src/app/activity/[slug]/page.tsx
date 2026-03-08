@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { HiClock, HiUsers, HiArrowLeft } from "react-icons/hi";
+import { HiClock, HiUsers, HiArrowLeft } from "@/components/icons";
 import { getActivityBySlug, getAllSlugs } from "@/data/activities";
 import ActivityCarousel from "@/components/ActivityCarousel";
 

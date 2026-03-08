@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import HeroSection from "@/components/HeroSection";
 import ContactForm from "@/components/ContactForm";
-import { HiMail } from "react-icons/hi";
+import { HiMail } from "@/components/icons";
 
 export const metadata: Metadata = {
   title: "Contact Us — Get a Quote for Team Building in Montenegro",

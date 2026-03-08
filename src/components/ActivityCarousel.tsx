@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import { HiChevronLeft, HiChevronRight } from "@/components/icons";
 
 interface ActivityCarouselProps {
   images: string[];

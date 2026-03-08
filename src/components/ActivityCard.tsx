@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { HiClock, HiUsers } from "react-icons/hi";
+import { HiClock, HiUsers } from "@/components/icons";
 import type { Activity } from "@/data/activities";
 
 interface ActivityCardProps {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { HiX } from "react-icons/hi";
+import { HiX } from "@/components/icons";
 
 const activityOptions = [
   "Montenegro Scavenger Hunt",

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { HiX, HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import { HiX, HiChevronLeft, HiChevronRight } from "@/components/icons";
 
 interface GalleryGridProps {
   images: { src: string; alt: string }[];

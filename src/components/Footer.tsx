@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { HiMail } from "react-icons/hi";
+import { HiMail } from "@/components/icons";
 
 export default function Footer() {
   return (

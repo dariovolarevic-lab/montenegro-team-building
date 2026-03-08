@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { HiMenu, HiX } from "react-icons/hi";
+import { HiMenu, HiX } from "@/components/icons";
 import QuoteModal from "./QuoteModal";
 
 const navLinks = [
