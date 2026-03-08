@@ -11,8 +11,8 @@ const logos = [
 
 // Both rows show all 8 logos but animate in opposite directions
 // 4 copies ensures the strip (4 × 8 × 196px ≈ 6272px) covers any screen — no gap during loop
-const row1Double = [...logos, ...logos, ...logos, ...logos];
-const row2Double = [...logos, ...logos, ...logos, ...logos];
+const row1Double = [...logos, ...logos, ...logos];
+const row2Double = [...logos, ...logos, ...logos];
 
 export default function LogoCarousel() {
   return (
@@ -26,7 +26,7 @@ export default function LogoCarousel() {
       <div className="relative mb-4">
         <div
           className="flex gap-4"
-          style={{ animation: "ticker 50s linear infinite", width: "max-content" }}
+          style={{ animation: "ticker 50s linear infinite", width: "max-content", willChange: "transform" }}
         >
           {row1Double.map((logo, idx) => (
             <div
@@ -62,7 +62,7 @@ export default function LogoCarousel() {
       <div className="relative mb-10" style={{ marginLeft: "-90px" }}>
         <div
           className="flex gap-4"
-          style={{ animation: "ticker 60s linear infinite reverse", width: "max-content" }}
+          style={{ animation: "ticker 60s linear infinite reverse", width: "max-content", willChange: "transform" }}
         >
           {row2Double.map((logo, idx) => (
             <div

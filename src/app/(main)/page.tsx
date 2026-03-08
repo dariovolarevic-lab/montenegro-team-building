@@ -1,12 +1,17 @@
 
 import HeroSection from "@/components/HeroSection";
 import ActivityCard from "@/components/ActivityCard";
-import LogoCarousel from "@/components/LogoCarousel";
 import ScrollReveal from "@/components/ScrollReveal";
 import QuoteButton from "@/components/QuoteButton";
 import { activities } from "@/data/activities";
 import Link from "next/link";
 import Image from "next/image";
+import dynamic from "next/dynamic";
+
+const LogoCarousel = dynamic(() => import("@/components/LogoCarousel"), {
+  ssr: false,
+  loading: () => <div className="py-4"><div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div className="bg-slate-900 rounded-3xl py-16 h-[400px]" /></div></div>,
+});
 
 export const revalidate = 86400;
 
@@ -52,6 +57,7 @@ export default function HomePage() {
               height={1080}
               className="w-full h-auto block"
               priority
+              sizes="100vw"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent" />
           </div>
