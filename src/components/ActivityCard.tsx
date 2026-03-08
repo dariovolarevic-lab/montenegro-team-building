@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { HiClock, HiUsers } from "@/components/icons";
 import type { Activity } from "@/data/activities";
 
@@ -14,11 +15,12 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
     >
       {/* Image */}
       <div className="relative overflow-hidden bg-slate-100 aspect-[16/9]">
-        <img
+        <Image
           src={activity.image}
           alt={activity.title}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-          loading="lazy"
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
         {/* Category Badge */}
         <span className="absolute top-3 left-3 bg-amber-400 text-slate-900 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full">

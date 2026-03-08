@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { HiMail } from "@/components/icons";
 
 export default function Footer() {
@@ -23,7 +24,7 @@ export default function Footer() {
           {/* Column 2 — Logo */}
           <div className="flex flex-col items-center justify-center">
             <Link href="/" className="flex items-center gap-0" aria-label="Montenegro Team Building — Home">
-              <img
+              <Image
                 src="/images/gallery/logo.png"
                 alt="Montenegro Team Building logo"
                 width={96}

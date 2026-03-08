@@ -1,9 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import { HiMenu, HiX } from "@/components/icons";
-import QuoteModal from "./QuoteModal";
+
+const QuoteModal = dynamic(() => import("./QuoteModal"), { ssr: false });
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -23,12 +26,13 @@ export default function Header() {
 
             {/* Logo / Brand */}
             <Link href="/" className="flex items-center gap-0 group shrink-0 relative z-10" aria-label="Montenegro Team Building — Home">
-              <img
+              <Image
                 src="/images/gallery/logo.png"
                 alt="Montenegro Team Building logo"
                 width={64}
                 height={64}
                 className="h-16 md:h-18 w-auto object-contain"
+                priority
               />
               <div className="flex flex-col leading-none self-center items-center">
                 <span className="text-white text-xs md:text-sm font-semibold uppercase tracking-widest">

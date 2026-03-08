@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import QuoteModal from "./QuoteModal";
+import dynamic from "next/dynamic";
+
+const QuoteModal = dynamic(() => import("./QuoteModal"), { ssr: false });
 
 export default function QuoteButton({ className }: { className?: string }) {
   const [open, setOpen] = useState(false);

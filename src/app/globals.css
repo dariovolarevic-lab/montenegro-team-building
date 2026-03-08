@@ -40,8 +40,9 @@ body {
   to   { opacity: 1; transform: translateX(0); }
 }
 
-.reveal {
+.reveal, .reveal-fade, .reveal-left, .reveal-right {
   opacity: 0;
+  will-change: transform, opacity;
 }
 
 .reveal.visible {
@@ -50,22 +51,17 @@ body {
 
 .reveal-fade.visible {
   animation: fadeIn 0.7s ease forwards;
-}
-
-.reveal-left {
-  opacity: 0;
+  will-change: auto;
 }
 
 .reveal-left.visible {
   animation: fadeFromLeft 0.7s ease forwards;
-}
-
-.reveal-right {
-  opacity: 0;
+  will-change: auto;
 }
 
 .reveal-right.visible {
   animation: fadeFromRight 0.7s ease forwards;
+  will-change: auto;
 }
 
 /* Logo carousel ticker animation */

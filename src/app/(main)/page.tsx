@@ -125,13 +125,12 @@ export default function HomePage() {
                 <div className="flex-1 relative min-h-[360px] w-full">
                   {/* Activity image — right portion */}
                   <div className="absolute right-0 top-8 w-4/5 h-80 rounded-2xl overflow-hidden shadow-2xl border-4 border-slate-100">
-                    <img
+                    <Image
                       src={activity.image}
                       alt={activity.title}
-                      width={1920}
-                      height={1080}
-                      className="w-full h-full object-cover"
-                      loading="lazy"
+                      fill
+                      sizes="(max-width: 1024px) 80vw, 40vw"
+                      className="object-cover"
                     />
                   </div>
                   {/* Review card — overlapping from left */}
@@ -139,13 +138,12 @@ export default function HomePage() {
                     <div className="absolute left-0 top-0 z-10 bg-amber-50 border-2 border-amber-200 rounded-2xl p-5 w-64 shadow-xl">
                       <div className="flex items-center gap-3 mb-3">
                         <div className="w-16 h-16 rounded-full bg-white border border-gray-200 flex items-center justify-center overflow-hidden shrink-0">
-                          <img
+                          <Image
                             src={review.logo}
                             alt={review.company}
                             width={56}
                             height={56}
                             className="w-14 h-14 object-contain"
-                            loading="lazy"
                           />
                         </div>
                         <div>
