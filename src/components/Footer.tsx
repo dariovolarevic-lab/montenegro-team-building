@@ -22,10 +22,12 @@ export default function Footer() {
 
           {/* Column 2 — Logo */}
           <div className="flex flex-col items-center justify-center">
-            <Link href="/" className="flex items-center gap-0">
+            <Link href="/" className="flex items-center gap-0" aria-label="Montenegro Team Building — Home">
               <img
                 src="/images/gallery/logo.png"
-                alt="Montenegro Team Building"
+                alt="Montenegro Team Building logo"
+                width={96}
+                height={96}
                 className="h-24 w-auto object-contain"
               />
               <div className="flex flex-col leading-none self-center items-center">

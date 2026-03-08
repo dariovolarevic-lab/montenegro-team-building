@@ -95,6 +95,8 @@ export default async function ActivityPage({ params }: ActivityPageProps) {
             <img
               src={activity.image}
               alt={activity.title}
+              width={1920}
+              height={1080}
               className="w-full h-auto block max-h-[50vh] object-cover object-center"
               fetchPriority="high"
             />

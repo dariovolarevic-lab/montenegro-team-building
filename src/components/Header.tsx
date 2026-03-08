@@ -23,10 +23,12 @@ export default function Header() {
           <div className="flex items-center justify-between h-16 md:h-20 relative">
 
             {/* Logo / Brand */}
-            <Link href="/" className="flex items-center gap-0 group shrink-0 relative z-10">
+            <Link href="/" className="flex items-center gap-0 group shrink-0 relative z-10" aria-label="Montenegro Team Building — Home">
               <img
                 src="/images/gallery/logo.png"
-                alt="Montenegro Team Building"
+                alt="Montenegro Team Building logo"
+                width={64}
+                height={64}
                 className="h-16 md:h-18 w-auto object-contain"
               />
               <div className="flex flex-col leading-none self-center items-center">

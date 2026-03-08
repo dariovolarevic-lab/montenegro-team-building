@@ -43,6 +43,8 @@ export default function HomePage() {
             <img
               src="/images/hero.webp"
               alt="Montenegro Team Building"
+              width={1920}
+              height={1080}
               className="w-full h-auto block"
               fetchPriority="high"
             />
@@ -108,6 +110,7 @@ export default function HomePage() {
                   <Link
                     href={`/activity/${activity.slug}`}
                     className="inline-block bg-slate-900 hover:bg-slate-700 text-white font-semibold py-3 px-8 rounded-full transition-colors text-sm uppercase tracking-wider"
+                    aria-label={`Learn more about ${activity.title}`}
                   >
                     Learn more
                   </Link>
@@ -120,7 +123,10 @@ export default function HomePage() {
                     <img
                       src={activity.image}
                       alt={activity.title}
+                      width={1920}
+                      height={1080}
                       className="w-full h-full object-cover"
+                      loading="lazy"
                     />
                   </div>
                   {/* Review card — overlapping from left */}
@@ -131,7 +137,10 @@ export default function HomePage() {
                           <img
                             src={review.logo}
                             alt={review.company}
+                            width={56}
+                            height={56}
                             className="w-14 h-14 object-contain"
+                            loading="lazy"
                           />
                         </div>
                         <div>
