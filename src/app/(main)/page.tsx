@@ -35,22 +35,21 @@ const reviews: Record<string, { name: string; role: string; company: string; log
 export default function HomePage() {
   return (
     <>
-      {/* Preload hero image */}
-      <link rel="preload" as="image" href="/images/hero.webp" />
-      {/* Hero */}}
+      {/* Hero */}
       <section className="pt-8 pb-4 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div
             className="relative overflow-hidden rounded-2xl shadow-xl"
             style={{ clipPath: "polygon(0 0, 100% 0, 100% 88%, 78% 100%, 0 100%)" }}
           >
-            <img
+            {/* Next.js optimized hero image */}
+            <Image
               src="/images/hero.webp"
               alt="Montenegro Team Building"
               width={1920}
               height={1080}
               className="w-full h-auto block"
-              fetchPriority="high"
+              priority
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent" />
           </div>
