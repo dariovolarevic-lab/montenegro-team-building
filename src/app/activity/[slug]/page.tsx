@@ -96,6 +96,7 @@ export default async function ActivityPage({ params }: ActivityPageProps) {
               src={activity.image}
               alt={activity.title}
               className="w-full h-auto block max-h-[50vh] object-cover object-center"
+              fetchPriority="high"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-slate-900/20 to-transparent" />
             <div className="absolute bottom-8 left-6 md:left-10 z-10">

@@ -13,11 +13,12 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
       className="group block bg-white rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
     >
       {/* Image */}
-      <div className="relative overflow-hidden bg-slate-100">
+      <div className="relative overflow-hidden bg-slate-100 aspect-[16/9]">
         <img
           src={activity.image}
           alt={activity.title}
-          className="w-full h-auto block transition-transform duration-500 group-hover:scale-105"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          loading="lazy"
         />
         {/* Category Badge */}
         <span className="absolute top-3 left-3 bg-amber-400 text-slate-900 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full">

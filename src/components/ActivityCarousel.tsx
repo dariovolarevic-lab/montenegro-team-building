@@ -39,6 +39,7 @@ export default function ActivityCarousel({ images, activityTitle }: ActivityCaro
               src={images[getIdx(-1)]}
               alt={`${activityTitle} photo`}
               className="w-full h-52 md:h-64 object-cover"
+              loading="lazy"
             />
           </div>
 
@@ -48,6 +49,7 @@ export default function ActivityCarousel({ images, activityTitle }: ActivityCaro
               src={images[current]}
               alt={`${activityTitle} photo`}
               className="w-full h-56 md:h-72 object-cover"
+              loading="lazy"
             />
           </div>
 
@@ -57,6 +59,7 @@ export default function ActivityCarousel({ images, activityTitle }: ActivityCaro
               src={images[getIdx(1)]}
               alt={`${activityTitle} photo`}
               className="w-full h-52 md:h-64 object-cover"
+              loading="lazy"
             />
           </div>
 

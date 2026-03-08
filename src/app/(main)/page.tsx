@@ -44,6 +44,7 @@ export default function HomePage() {
               src="/images/hero.webp"
               alt="Montenegro Team Building"
               className="w-full h-auto block"
+              fetchPriority="high"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent" />
           </div>
