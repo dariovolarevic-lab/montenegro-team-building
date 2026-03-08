@@ -57,6 +57,7 @@ export default function HomePage() {
               className="w-full h-auto block"
               priority
               sizes="100vw"
+              fetchPriority="high"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent" />
           </div>

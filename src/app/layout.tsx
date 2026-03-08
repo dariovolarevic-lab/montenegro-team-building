@@ -132,6 +132,7 @@ export default function RootLayout({
           as="image"
           href="/images/hero.webp"
           type="image/webp"
+          fetchPriority="high"
         />
         <script
           type="application/ld+json"
