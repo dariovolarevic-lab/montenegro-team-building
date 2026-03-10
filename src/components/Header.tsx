@@ -11,6 +11,7 @@ const QuoteModal = dynamic(() => import("./QuoteModal"), { ssr: false });
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About Us" },
+  { href: "/blog", label: "Blog" },
   { href: "/contact", label: "Contact Us" },
 ];
 

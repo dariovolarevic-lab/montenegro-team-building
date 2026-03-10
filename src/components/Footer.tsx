@@ -42,8 +42,17 @@ export default function Footer() {
             </Link>
           </div>
 
-          {/* Column 3 — Contact Info */}
+          {/* Column 3 — Links & Contact */}
           <div>
+            <h4 className="text-white text-xl font-bold uppercase tracking-widest mb-4">
+              Quick Links
+            </h4>
+            <nav className="flex flex-col gap-2 text-sm mb-6">
+              <Link href="/about" className="hover:text-amber-400 transition-colors">About Us</Link>
+              <Link href="/blog" className="hover:text-amber-400 transition-colors">Blog</Link>
+              <Link href="/contact" className="hover:text-amber-400 transition-colors">Contact Us</Link>
+            </nav>
+
             <h4 className="text-white text-xl font-bold uppercase tracking-widest mb-4">
               Contact Info
             </h4>
