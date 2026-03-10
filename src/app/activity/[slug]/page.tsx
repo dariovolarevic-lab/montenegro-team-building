@@ -38,6 +38,12 @@ export async function generateMetadata({
       images: [activity.image],
       type: "article",
     },
+    twitter: {
+      card: "summary_large_image",
+      title: `${activity.title} — Team Building in Montenegro`,
+      description: activity.shortDescription,
+      images: [activity.image],
+    },
   };
 }
 

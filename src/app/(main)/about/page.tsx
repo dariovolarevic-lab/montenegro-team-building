@@ -5,11 +5,22 @@ export const metadata: Metadata = {
   title: "About Us — Expert Team Building Organisers in Montenegro",
   description:
     "Meet the team behind Montenegro Team Building. We specialise in organising bespoke corporate team building events, scavenger hunts, and group activities across Montenegro for companies worldwide.",
+  keywords: [
+    "about Montenegro Team Building",
+    "team building organisers Montenegro",
+    "corporate events Montenegro",
+  ],
   alternates: {
     canonical: "https://www.montenegroteambuilding.com/about",
   },
   openGraph: {
     title: "About Us — Expert Team Building Organisers in Montenegro",
+    description:
+      "Meet the team behind Montenegro Team Building. Bespoke corporate team building events across Montenegro.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Us — Montenegro Team Building",
     description:
       "Meet the team behind Montenegro Team Building. Bespoke corporate team building events across Montenegro.",
   },

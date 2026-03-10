@@ -1,4 +1,4 @@
-
+import type { Metadata } from "next";
 import HeroSection from "@/components/HeroSection";
 import ActivityCard from "@/components/ActivityCard";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -11,6 +11,29 @@ import dynamic from "next/dynamic";
 const LogoCarousel = dynamic(() => import("@/components/LogoCarousel"), {
   loading: () => <div className="py-4"><div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div className="bg-slate-900 rounded-3xl py-16 h-[400px]" /></div></div>,
 });
+
+export const metadata: Metadata = {
+  title: {
+    absolute: "Team Building Activities in Montenegro | Montenegro Team Building",
+  },
+  description:
+    "Professional team building activities and corporate events in Montenegro. Scavenger hunts, treasure hunts, creative challenges and more for groups of 8 to 500 people in Kotor, Budva, Podgorica and across Montenegro.",
+  alternates: {
+    canonical: "https://www.montenegroteambuilding.com",
+  },
+  openGraph: {
+    title: "Team Building Activities in Montenegro | Montenegro Team Building",
+    description:
+      "Professional team building activities and corporate events in Montenegro. Scavenger hunts, treasure hunts, creative challenges for groups of all sizes.",
+    url: "https://www.montenegroteambuilding.com",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Team Building Activities in Montenegro",
+    description:
+      "Professional team building activities and corporate events in Montenegro for groups of all sizes.",
+  },
+};
 
 export const revalidate = 86400;
 

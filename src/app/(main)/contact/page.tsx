@@ -7,11 +7,22 @@ export const metadata: Metadata = {
   title: "Contact Us — Get a Quote for Team Building in Montenegro",
   description:
     "Contact Montenegro Team Building for a free quote. Tell us your group size, preferred dates and activities. We organise team building events in Kotor, Budva, Podgorica and across Montenegro.",
+  keywords: [
+    "contact Montenegro Team Building",
+    "team building quote Montenegro",
+    "corporate event enquiry Montenegro",
+  ],
   alternates: {
     canonical: "https://www.montenegroteambuilding.com/contact",
   },
   openGraph: {
     title: "Contact Us — Get a Quote for Team Building in Montenegro",
+    description:
+      "Contact us for a free team building quote. Events in Kotor, Budva, Podgorica and across Montenegro.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact Us — Montenegro Team Building",
     description:
       "Contact us for a free team building quote. Events in Kotor, Budva, Podgorica and across Montenegro.",
   },

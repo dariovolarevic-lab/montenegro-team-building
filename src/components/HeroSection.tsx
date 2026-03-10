@@ -20,7 +20,7 @@ export default function HeroSection({
       {backgroundImage && (
         <img
           src={backgroundImage}
-          alt="Hero"
+          alt="Team building activities in Montenegro"
           className="w-full h-auto block"
         />
       )}
