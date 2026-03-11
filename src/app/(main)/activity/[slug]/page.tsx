@@ -64,6 +64,12 @@ export default async function ActivityPage({ params }: ActivityPageProps) {
       "@type": "LocalBusiness",
       name: "Montenegro Team Building",
       url: "https://www.montenegroteambuilding.com",
+      image: "https://www.montenegroteambuilding.com/images/hero.webp",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Kotor",
+        addressCountry: "ME",
+      },
     },
     areaServed: {
       "@type": "Country",
@@ -72,6 +78,36 @@ export default async function ActivityPage({ params }: ActivityPageProps) {
     url: `https://www.montenegroteambuilding.com/activity/${slug}`,
     image: `https://www.montenegroteambuilding.com${activity.image}`,
     category: activity.category,
+    serviceType: activity.category,
+    offers: {
+      "@type": "Offer",
+      availability: "https://schema.org/InStock",
+      priceCurrency: "EUR",
+      eligibleQuantity: {
+        "@type": "QuantitativeValue",
+        value: activity.numberOfPeople,
+        unitText: "people",
+      },
+    },
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://www.montenegroteambuilding.com",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: activity.title,
+        item: `https://www.montenegroteambuilding.com/activity/${slug}`,
+      },
+    ],
   };
 
   return (
@@ -80,6 +116,12 @@ export default async function ActivityPage({ params }: ActivityPageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(activitySchema),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema),
         }}
       />
       {/* Hero */}
