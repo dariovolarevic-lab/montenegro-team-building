@@ -127,6 +127,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <head>
+        <link rel="manifest" href="/manifest.json" />
         <link
           rel="preload"
           as="image"
