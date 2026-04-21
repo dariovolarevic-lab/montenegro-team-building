@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -10,6 +10,11 @@ export default function ContactForm() {
     message: "",
   });
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  // Honeypot: bots fill this, humans don't see it
+  const [honeypot, setHoneypot] = useState("");
+  // Timing: track when form was rendered
+  const formLoadTime = useRef<number>(0);
+  useEffect(() => { formLoadTime.current = Date.now(); }, []);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -25,7 +30,7 @@ export default function ContactForm() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, _hp: honeypot, _t: formLoadTime.current }),
       });
 
       if (res.ok) {
@@ -41,6 +46,19 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
+      {/* Honeypot — hidden from real users, bots will fill it */}
+      <div style={{ position: "absolute", left: "-9999px", top: "-9999px", overflow: "hidden" }} aria-hidden="true">
+        <label htmlFor="website">Website</label>
+        <input
+          type="text"
+          id="website"
+          name="website"
+          value={honeypot}
+          onChange={(e) => setHoneypot(e.target.value)}
+          tabIndex={-1}
+          autoComplete="off"
+        />
+      </div>
       <div>
         <label
           htmlFor="name"

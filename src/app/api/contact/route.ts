@@ -1,6 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
+// ── Rate limiting ─────────────────────────────────────────────────────────────
+const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
+const RATE_LIMIT = 3;
+const RATE_WINDOW_MS = 15 * 60 * 1000; // 15 minutes
+
+// ── Spam keyword list ─────────────────────────────────────────────────────────
+const SPAM_KEYWORDS = [
+  "casino", "viagra", "cialis", "crypto", "bitcoin", "ethereum",
+  "forex", "loan", "prize", "winner", "click here", "buy now",
+  "free money", "make money", "work from home", "seo service",
+  "link building", "backlink", "unsecured credit", "weight loss",
+  "diet pill", "enlargement", "adult", "xxx",
+];
+
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
   port: Number(process.env.SMTP_PORT) || 587,
@@ -14,9 +28,43 @@ const transporter = nodemailer.createTransport({
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, subject, message } = body;
+    const { name, email, subject, message, _hp, _t } = body;
 
-    // Validate required fields
+    // ── 1. Honeypot check ─────────────────────────────────────────────────────
+    // Real users never see or fill this field — bots do
+    if (_hp && String(_hp).length > 0) {
+      // Silent success so bots don't know they were blocked
+      return NextResponse.json({ success: true }, { status: 200 });
+    }
+
+    // ── 2. Timing check ───────────────────────────────────────────────────────
+    // Bots submit instantly; require at least 3 seconds
+    const elapsed = Date.now() - Number(_t || 0);
+    if (elapsed < 3000) {
+      return NextResponse.json({ success: true }, { status: 200 });
+    }
+
+    // ── 3. Rate limiting by IP ────────────────────────────────────────────────
+    const ip =
+      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
+      request.headers.get("x-real-ip") ??
+      "unknown";
+    const now = Date.now();
+    const entry = rateLimitMap.get(ip);
+
+    if (entry && now < entry.resetAt) {
+      if (entry.count >= RATE_LIMIT) {
+        return NextResponse.json(
+          { error: "Too many requests. Please wait before sending again." },
+          { status: 429 }
+        );
+      }
+      entry.count++;
+    } else {
+      rateLimitMap.set(ip, { count: 1, resetAt: now + RATE_WINDOW_MS });
+    }
+
+    // ── 4. Field validation ───────────────────────────────────────────────────
     if (!name || !email || !subject || !message) {
       return NextResponse.json(
         { error: "All fields are required" },
@@ -24,13 +72,31 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return NextResponse.json(
         { error: "Invalid email address" },
         { status: 400 }
       );
+    }
+
+    // ── 5. Content spam checks ────────────────────────────────────────────────
+    const combined = `${name} ${subject} ${message}`.toLowerCase();
+
+    // Block known spam keywords (silent drop)
+    if (SPAM_KEYWORDS.some((kw) => combined.includes(kw))) {
+      return NextResponse.json({ success: true }, { status: 200 });
+    }
+
+    // Block messages with too many URLs (typical spam pattern)
+    const urlCount = (message.match(/https?:\/\//gi) ?? []).length;
+    if (urlCount > 2) {
+      return NextResponse.json({ success: true }, { status: 200 });
+    }
+
+    // Block excessively short or suspiciously long names
+    if (name.trim().length < 2 || name.trim().length > 100) {
+      return NextResponse.json({ error: "Invalid name" }, { status: 400 });
     }
 
     await transporter.sendMail({

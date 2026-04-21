@@ -342,6 +342,36 @@ If Montenegro is on your radar for an incentive programme, the best time to star
 
 Drop us a message with your dates, group size, and any initial ideas. Even if you're just exploring options, we're happy to put together a proposal that shows what's possible.`,
   },
+  {
+    slug: "alukoenigstahl-team-building-kotor",
+    title: "Alukoenigstahl Takes on Kotor: A Scavenger Hunt to Remember",
+    excerpt:
+      "A group from one of Central Europe's leading metal distributors swapped the office for the old town of Kotor — and left with a few stories worth telling.",
+    date: "2026-04-21",
+    author: "Montenegro Team Building",
+    readTime: "4 min read",
+    image: "/images/activities/Alukoenigstahl Scavenger Hunt Kotor.webp",
+    tags: ["Client Events", "Kotor", "Scavenger Hunt", "Corporate Team Building"],
+    content: `This April we had the pleasure of hosting a group from Alukoenigstahl for a scavenger hunt through Kotor's old town. The weather was on our side — clear skies, warm enough to be comfortable, and the bay doing what the bay does best.
+
+## About Alukoenigstahl
+
+Alukoenigstahl is one of Central and Eastern Europe's leading distributors and processors of aluminium, flat steel, and stainless steel products. Based in Vienna, the company works across multiple markets and supplies industries that include automotive, construction, and architecture. They came to Montenegro with a mixed group — different departments, different countries — and the goal was simple: spend a day together outside the office.
+
+## The Scavenger Hunt in Kotor
+
+We started with a briefing at the main square, divided the group into teams, and set them loose through the old town. The route took them through some of Kotor's most recognisable spots — the Cathedral of Saint Tryphon, the Clock Tower, the city walls — with challenges at each stop that mixed local history with creative tasks.
+
+What tends to happen on these hunts is that people surprise themselves a bit. Someone who doesn't say much in meetings turns out to be sharp at decoding clues. The team that goes off fast doesn't always finish first. By the midpoint, most groups have stopped thinking about work and started thinking about the next checkpoint.
+
+The Alukoenigstahl group got into it properly. The competition between teams was real but good-natured, and by the time everyone gathered for the final scoring, the mood was relaxed and genuinely positive.
+
+## Interested in Something Similar?
+
+If you're planning a team building day in Montenegro — a scavenger hunt, a treasure hunt, or something tailored to your group — we're happy to help. Kotor works well for groups of all sizes, and we can put together a programme that fits your schedule and budget.
+
+Feel free to get in touch.`,
+  },
 ];
 
 export function getBlogPostBySlug(slug: string): BlogPost | undefined {
