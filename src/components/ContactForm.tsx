@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -12,10 +12,6 @@ export default function ContactForm() {
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
   // Honeypot: bots fill this, humans don't see it
   const [honeypot, setHoneypot] = useState("");
-  // Timing: track when form was rendered
-  const formLoadTime = useRef<number>(0);
-  useEffect(() => { formLoadTime.current = Date.now(); }, []);
-
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -30,7 +26,7 @@ export default function ContactForm() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...formData, _hp: honeypot, _t: formLoadTime.current }),
+        body: JSON.stringify({ ...formData, _hp: honeypot }),
       });
 
       if (res.ok) {

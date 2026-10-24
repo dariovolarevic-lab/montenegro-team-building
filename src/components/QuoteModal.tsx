@@ -24,6 +24,8 @@ export default function QuoteModal({ onClose }: Props) {
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState(false);
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -33,17 +35,32 @@ export default function QuoteModal({ onClose }: Props) {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    await fetch("/api/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name: `${form.firstName} ${form.lastName}`,
-        email: form.email,
-        subject: `Quote request - ${form.activity || "General"}`,
-        message: `Company: ${form.company}\nGroup Size: ${form.groupSize}\nActivity: ${form.activity}\n\n${form.message}`,
-      }),
-    });
-    setSubmitted(true);
+    setSubmitting(true);
+    setError(false);
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: `${form.firstName} ${form.lastName}`,
+          email: form.email,
+          subject: `Quote request - ${form.activity || "General"}`,
+          message: `Company: ${form.company}\nGroup Size: ${form.groupSize}\nActivity: ${form.activity}\n\n${form.message}`,
+        }),
+      });
+
+      if (!response.ok) {
+        setError(true);
+        return;
+      }
+
+      setSubmitted(true);
+    } catch {
+      setError(true);
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -191,10 +208,16 @@ export default function QuoteModal({ onClose }: Props) {
 
               <button
                 type="submit"
-                className="bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold py-3 px-8 rounded-lg transition-colors uppercase tracking-wider text-sm"
+                disabled={submitting}
+                className="bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold py-3 px-8 rounded-lg transition-colors uppercase tracking-wider text-sm disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                Submit
+                {submitting ? "Sending..." : "Submit"}
               </button>
+              {error && (
+                <p role="alert" className="text-sm text-red-600">
+                  We couldn&apos;t send your request. Please try again or email us directly.
+                </p>
+              )}
             </form>
           </>
         )}

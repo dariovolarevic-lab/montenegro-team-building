@@ -15,6 +15,19 @@ const SPAM_KEYWORDS = [
   "diet pill", "enlargement", "adult", "xxx",
 ];
 
+function escapeHtml(value: string) {
+  return value.replace(/[&<>"']/g, (character) => {
+    const entities: Record<string, string> = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;",
+    };
+    return entities[character];
+  });
+}
+
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
   port: Number(process.env.SMTP_PORT) || 587,
@@ -28,7 +41,7 @@ const transporter = nodemailer.createTransport({
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, subject, message, _hp, _t } = body;
+    const { name, email, subject, message, _hp } = body;
 
     // ── 1. Honeypot check ─────────────────────────────────────────────────────
     // Real users never see or fill this field — bots do
@@ -37,14 +50,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: true }, { status: 200 });
     }
 
-    // ── 2. Timing check ───────────────────────────────────────────────────────
-    // Bots submit instantly; require at least 3 seconds
-    const elapsed = Date.now() - Number(_t || 0);
-    if (elapsed < 3000) {
-      return NextResponse.json({ success: true }, { status: 200 });
-    }
-
-    // ── 3. Rate limiting by IP ────────────────────────────────────────────────
+    // ── 2. Rate limiting by IP ────────────────────────────────────────────────
     const ip =
       request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
       request.headers.get("x-real-ip") ??
@@ -64,7 +70,7 @@ export async function POST(request: NextRequest) {
       rateLimitMap.set(ip, { count: 1, resetAt: now + RATE_WINDOW_MS });
     }
 
-    // ── 4. Field validation ───────────────────────────────────────────────────
+    // ── 3. Field validation ───────────────────────────────────────────────────
     if (!name || !email || !subject || !message) {
       return NextResponse.json(
         { error: "All fields are required" },
@@ -80,18 +86,22 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // ── 5. Content spam checks ────────────────────────────────────────────────
+    // ── 4. Content spam checks ────────────────────────────────────────────────
     const combined = `${name} ${subject} ${message}`.toLowerCase();
 
-    // Block known spam keywords (silent drop)
     if (SPAM_KEYWORDS.some((kw) => combined.includes(kw))) {
-      return NextResponse.json({ success: true }, { status: 200 });
+      return NextResponse.json(
+        { error: "Message was rejected by the spam filter." },
+        { status: 400 }
+      );
     }
 
-    // Block messages with too many URLs (typical spam pattern)
     const urlCount = (message.match(/https?:\/\//gi) ?? []).length;
     if (urlCount > 2) {
-      return NextResponse.json({ success: true }, { status: 200 });
+      return NextResponse.json(
+        { error: "Message contains too many links." },
+        { status: 400 }
+      );
     }
 
     // Block excessively short or suspiciously long names
@@ -99,10 +109,20 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Invalid name" }, { status: 400 });
     }
 
+    const smtpUser = process.env.SMTP_USER;
+    const recipient = process.env.TO_EMAIL;
+    if (!smtpUser || !recipient) {
+      console.error("Email send error: SMTP_USER or TO_EMAIL is not configured.");
+      return NextResponse.json(
+        { error: "Email service is not configured." },
+        { status: 500 }
+      );
+    }
+
     await transporter.sendMail({
-      from: `"${name}" <${process.env.SMTP_USER}>`,
-      to: process.env.TO_EMAIL,
-      replyTo: `"${name}" <${email}>`,
+      from: { name, address: smtpUser },
+      to: recipient,
+      replyTo: { name, address: email },
       subject: subject,
       html: `
 <!DOCTYPE html>
@@ -131,15 +151,15 @@ export async function POST(request: NextRequest) {
             <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e2e8f0;border-radius:8px;overflow:hidden;">
               <tr style="background-color:#f8fafc;">
                 <td style="padding:12px 16px;font-size:12px;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;width:100px;border-bottom:1px solid #e2e8f0;">Name</td>
-                <td style="padding:12px 16px;font-size:14px;color:#1e293b;border-bottom:1px solid #e2e8f0;">${name}</td>
+                <td style="padding:12px 16px;font-size:14px;color:#1e293b;border-bottom:1px solid #e2e8f0;">${escapeHtml(name)}</td>
               </tr>
               <tr>
                 <td style="padding:12px 16px;font-size:12px;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid #e2e8f0;">Email</td>
-                <td style="padding:12px 16px;font-size:14px;border-bottom:1px solid #e2e8f0;"><a href="mailto:${email}" style="color:#d97706;text-decoration:none;">${email}</a></td>
+                <td style="padding:12px 16px;font-size:14px;border-bottom:1px solid #e2e8f0;"><a href="mailto:${escapeHtml(email)}" style="color:#d97706;text-decoration:none;">${escapeHtml(email)}</a></td>
               </tr>
               <tr style="background-color:#f8fafc;">
                 <td style="padding:12px 16px;font-size:12px;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Subject</td>
-                <td style="padding:12px 16px;font-size:14px;color:#1e293b;">${subject}</td>
+                <td style="padding:12px 16px;font-size:14px;color:#1e293b;">${escapeHtml(subject)}</td>
               </tr>
             </table>
           </td>
@@ -148,7 +168,7 @@ export async function POST(request: NextRequest) {
         <tr>
           <td style="padding:4px 32px 28px;">
             <h3 style="margin:0 0 10px;color:#0f172a;font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Message</h3>
-            <div style="background-color:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:16px;font-size:14px;color:#334155;line-height:1.6;white-space:pre-line;">${message}</div>
+            <div style="background-color:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:16px;font-size:14px;color:#334155;line-height:1.6;white-space:pre-line;">${escapeHtml(message)}</div>
           </td>
         </tr>
         <!-- Footer -->
