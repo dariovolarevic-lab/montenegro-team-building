@@ -10,6 +10,7 @@ export default function ContactForm() {
     message: "",
   });
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
   // Honeypot: bots fill this, humans don't see it
   const [honeypot, setHoneypot] = useState("");
   const handleChange = (
@@ -21,6 +22,7 @@ export default function ContactForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("sending");
+    setErrorMessage("");
 
     try {
       const res = await fetch("/api/contact", {
@@ -29,13 +31,17 @@ export default function ContactForm() {
         body: JSON.stringify({ ...formData, _hp: honeypot }),
       });
 
-      if (res.ok) {
-        setStatus("success");
-        setFormData({ name: "", email: "", subject: "", message: "" });
-      } else {
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        setErrorMessage(data?.error || "Something went wrong. Please try again or email us directly.");
         setStatus("error");
+        return;
       }
+
+      setStatus("success");
+      setFormData({ name: "", email: "", subject: "", message: "" });
     } catch {
+      setErrorMessage("Something went wrong. Please try again or email us directly.");
       setStatus("error");
     }
   };
@@ -147,7 +153,7 @@ export default function ContactForm() {
 
       {status === "error" && (
         <div className="bg-red-50 border border-red-200 text-red-700 rounded-lg px-4 py-3 text-sm">
-          Something went wrong. Please try again or email us directly.
+          {errorMessage}
         </div>
       )}
     </form>

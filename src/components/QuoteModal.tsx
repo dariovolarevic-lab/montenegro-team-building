@@ -25,7 +25,7 @@ export default function QuoteModal({ onClose }: Props) {
   });
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -36,7 +36,7 @@ export default function QuoteModal({ onClose }: Props) {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSubmitting(true);
-    setError(false);
+    setError("");
 
     try {
       const response = await fetch("/api/contact", {
@@ -51,13 +51,14 @@ export default function QuoteModal({ onClose }: Props) {
       });
 
       if (!response.ok) {
-        setError(true);
+        const data = await response.json().catch(() => null);
+        setError(data?.error || "We couldn't send your request. Please try again or email us directly.");
         return;
       }
 
       setSubmitted(true);
     } catch {
-      setError(true);
+      setError("We couldn't send your request. Please try again or email us directly.");
     } finally {
       setSubmitting(false);
     }
@@ -215,7 +216,7 @@ export default function QuoteModal({ onClose }: Props) {
               </button>
               {error && (
                 <p role="alert" className="text-sm text-red-600">
-                  We couldn&apos;t send your request. Please try again or email us directly.
+                  {error}
                 </p>
               )}
             </form>

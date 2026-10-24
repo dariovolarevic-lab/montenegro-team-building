@@ -52,23 +52,10 @@ export async function POST(request: NextRequest) {
 
     // ── 2. Rate limiting by IP ────────────────────────────────────────────────
     const ip =
+      request.headers.get("cf-connecting-ip") ??
       request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
       request.headers.get("x-real-ip") ??
       "unknown";
-    const now = Date.now();
-    const entry = rateLimitMap.get(ip);
-
-    if (entry && now < entry.resetAt) {
-      if (entry.count >= RATE_LIMIT) {
-        return NextResponse.json(
-          { error: "Too many requests. Please wait before sending again." },
-          { status: 429 }
-        );
-      }
-      entry.count++;
-    } else {
-      rateLimitMap.set(ip, { count: 1, resetAt: now + RATE_WINDOW_MS });
-    }
 
     // ── 3. Field validation ───────────────────────────────────────────────────
     if (!name || !email || !subject || !message) {
@@ -107,6 +94,20 @@ export async function POST(request: NextRequest) {
     // Block excessively short or suspiciously long names
     if (name.trim().length < 2 || name.trim().length > 100) {
       return NextResponse.json({ error: "Invalid name" }, { status: 400 });
+    }
+
+    const now = Date.now();
+    const entry = rateLimitMap.get(ip);
+    if (entry && now < entry.resetAt) {
+      if (entry.count >= RATE_LIMIT) {
+        return NextResponse.json(
+          { error: "Too many requests. Please wait before sending again." },
+          { status: 429 }
+        );
+      }
+      entry.count++;
+    } else {
+      rateLimitMap.set(ip, { count: 1, resetAt: now + RATE_WINDOW_MS });
     }
 
     const smtpUser = process.env.SMTP_USER;
